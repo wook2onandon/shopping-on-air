@@ -1,0 +1,26 @@
+.dayContainer {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3px;
+  width: auto;
+  height: 100%;
+}
+
+.dayBox {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+}
+
+.dayNum {
+  font-size: 1.3rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.dayWeek {
+  font-size: 0.7rem;
+  margin-top: -2px;
+  text-align: center;
+}
