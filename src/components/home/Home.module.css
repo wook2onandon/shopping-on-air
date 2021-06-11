@@ -1,3 +1,18 @@
 .container {
+  width: 100%;
+  height: 100vh;
   position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.contentsContainer {
+  margin-top: 50px;
+  width: 100%;
+  height: 100%;
+  padding: 60px 0 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }

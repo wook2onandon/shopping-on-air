@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  height: 174px;
+  box-sizing: border-box;
+}
+
+.banner {
+  width: 100%;
+  height: 174px;
+  object-fit: cover;
+}
