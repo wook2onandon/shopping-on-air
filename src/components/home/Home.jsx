@@ -10,8 +10,8 @@ import Category from './category/Category';
 const Home = (props) => (
   <div className={styles.container}>
     <Navbar />
-    <CalendarList />
     <div className={styles.contentsContainer}>
+      <CalendarList />
       <Banner />
       <Category />
     </div>

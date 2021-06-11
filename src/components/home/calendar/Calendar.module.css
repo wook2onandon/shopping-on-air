@@ -17,6 +17,7 @@
   width: 4.4rem;
   height: 4.4rem;
   font-size: 1.5rem;
+  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
