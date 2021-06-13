@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Calendar.module.css';
 
-const Calendar = ({ day, week }) => (
-  <li className={styles.dayContainer}>
+const Calendar = ({ day, week, isToday, isSelected, onClickDay }) => (
+  <li className={styles.dayContainer} onClick={() => onClickDay(day)}>
     <div className={styles.dayBox}>
       <div className={styles.dayNum}>{day}</div>
       <div className={styles.dayWeek}>{week}</div>
