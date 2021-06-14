@@ -7,23 +7,91 @@
   height: 50px;
   justify-content: center;
   border-bottom: 1px solid rgb(236, 236, 236);
+  overflow: auto;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .menuList {
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  top: 0;
   padding: 0 20px;
-  width: 100%;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   box-sizing: border-box;
+  overflow: auto;
+  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 10%, black 25%);
+}
+
+.menuList::-webkit-scrollbar {
+  display: none;
+}
+
+.menuBox {
+  padding: 0 3px;
+  width: auto;
+  flex-shrink: 0;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .menu {
   font-size: 1.6rem;
   padding: 0.1rem 0.6rem;
   box-sizing: border-box;
+  margin: 0;
   white-space: nowrap;
   text-align: center;
   line-height: 50px;
   font-weight: 500;
+  width: auto;
+}
+
+.menu:last-child {
+  min-width: 70px;
+}
+
+.channelContainer {
+  position: fixed;
+  padding: 1rem 1.5rem 1rem 0;
+  background: white;
+  z-index: 99;
+  width: auto;
+  font-size: 14px;
+  display: flex;
+  flex-shrink: 0;
+  right: 0;
+  color: #333;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.icon {
+  border-left: thin solid #ededed;
+  line-height: 1.5;
+  margin-right: 3px;
+  height: 24px;
+  width: 24px;
+}
+
+.channel {
+  font-size: 1.4rem;
 }

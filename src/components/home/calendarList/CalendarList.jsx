@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Calendar from '../calendar/Calendar';
 import styles from './CalendarList.module.css';
 import moment from 'moment';
@@ -23,24 +23,28 @@ const getDaysFromToday = (today) => {
 const getDayDiff = (today, selectedDay) => {};
 
 const CalendarList = (props) => {
-  const containerRef = React.useRef(null);
+  const containerRef = useRef(null);
   const today = moment();
   const days = getDaysFromToday(today);
-
   const [selectedDay, setSelectedDay] = useState(parseInt(today.format('DD')));
 
   const handleClickDay = useCallback((day) => {
     setSelectedDay(day);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // const boxHarf = containerRef.current.clientWidth / 2;
+    // const listWidth = containerRef.current.scrollWidth;
+    // const targetPos = containerRef.current.getBoundingClientRect();
+    // const selectTargetPos = targetPos.left + containerRef.offsetWidth / 2;
+    // console.log(boxHarf, listWidth, targetPos, selectTargetPos, selectedDay);
+
     if (!containerRef.current) return;
     const selectedDayObj = days.find((day) => day.day === selectedDay);
 
     if (!selectedDayObj) return;
-
     containerRef.current.scrollTo({
-      left: selectedDayObj.diff * 40,
+      left: selectedDayObj.diff * 26.625,
       behavior: 'smooth',
     });
   }, [days, selectedDay]);
@@ -61,7 +65,6 @@ const CalendarList = (props) => {
           );
         })}
       </ul>
-      {console.log(days)}
     </div>
   );
 };

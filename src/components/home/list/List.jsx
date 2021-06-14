@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const getOnAirList = (day) => {
   return [day, day + 1, day + 2];
 };
 
 const List = (props) => {
-  const [onAirList, setOnAirList] = React.useState(null);
+  const [onAirList, setOnAirList] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       setOnAirList(getOnAirList(selectedDay));
     };
