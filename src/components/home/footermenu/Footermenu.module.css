@@ -1,0 +1,28 @@
+
+.menu {
+  color: #000000;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: center;
+  flex-shrink: 1;
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menuIcon {
+  height: 45px;
+  width: 45px;
+  opacity: 0.5;
+}
+
+.btn-active {
+  opacity: 1;
+}

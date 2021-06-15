@@ -1,0 +1,26 @@
+.container {
+  background: #fff;
+  z-index: 5001;
+  position: absolute;
+  box-shadow: 0px -5px 5px -2px rgb(0 0 0 / 10%);
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.footerBox {
+  padding: 0 20px;
+  height: auto;
+  top: 0;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+  align-content: center;
+  overflow: hidden;
+}
+

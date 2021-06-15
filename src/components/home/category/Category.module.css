@@ -28,7 +28,7 @@
   justify-content: flex-start;
   box-sizing: border-box;
   overflow: auto;
-  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 10%, black 25%);
+  /* -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 10%, black 25%); */
 }
 
 .menuList::-webkit-scrollbar {
@@ -63,7 +63,7 @@
 }
 
 .menu:last-child {
-  min-width: 70px;
+  min-width: 60px;
 }
 
 .channelContainer {

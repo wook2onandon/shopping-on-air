@@ -1,9 +1,8 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Calendar from '../calendar/Calendar';
 import styles from './CalendarList.module.css';
 import moment from 'moment';
 import 'moment/locale/ko';
-// import { atom } from 'recoil';
 
 const getDaysFromToday = (today) => {
   const days = [];
@@ -28,14 +27,10 @@ const CalendarList = ({ selectedDay, setSelectedDay }) => {
   const today = moment();
   const days = getDaysFromToday(today);
 
-  // const dayState = atom({
-  //   key: 'dayState',
-  //   default: selectedDay,
-  // });
-  const handleClickDay = useCallback((day) => {
+  const handleClickDay = (day) => {
     setSelectedDay(day);
     console.log(selectedDay);
-  }, []);
+  };
 
   useEffect(() => {
     // const boxHarf = containerRef.current.clientWidth / 2;
