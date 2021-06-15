@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CalendarList from './calendarList/CalendarList';
 import styles from './Home.module.css';
 import Navbar from './navbar/Navbar';
 import Banner from './banner/Banner';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import Category from './category/Category';
+import moment from 'moment';
+import 'moment/locale/ko';
+import List from './list/List';
 
-const Home = (props) => (
-  <div className={styles.container}>
-    <Navbar />
-    <div className={styles.contentsContainer}>
-      <CalendarList />
-      <Banner />
-      <Category />
+const Home = (props) => {
+  const today = moment();
+  const [selectedDay, setSelectedDay] = useState(parseInt(today.format('DD')));
+  return (
+    <div className={styles.container}>
+      <Navbar />
+      <div className={styles.contentsContainer}>
+        <CalendarList
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+        />
+        <Banner />
+        <Category />
+        <List selectedDay={selectedDay} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Home;

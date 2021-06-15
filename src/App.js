@@ -4,9 +4,8 @@ import React from 'react';
 import { Reset } from 'styled-reset';
 
 function App() {
-  
   return (
-    <div className="App">
+    <div className="app">
       <Reset />
       <Home />
     </div>

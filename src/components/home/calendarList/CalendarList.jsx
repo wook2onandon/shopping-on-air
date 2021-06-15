@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import Calendar from '../calendar/Calendar';
 import styles from './CalendarList.module.css';
 import moment from 'moment';
 import 'moment/locale/ko';
+// import { atom } from 'recoil';
 
 const getDaysFromToday = (today) => {
   const days = [];
@@ -20,16 +21,20 @@ const getDaysFromToday = (today) => {
   return days;
 };
 
-const getDayDiff = (today, selectedDay) => {};
+// const getDayDiff = (today, selectedDay) => {};
 
-const CalendarList = (props) => {
+const CalendarList = ({ selectedDay, setSelectedDay }) => {
   const containerRef = useRef(null);
   const today = moment();
   const days = getDaysFromToday(today);
-  const [selectedDay, setSelectedDay] = useState(parseInt(today.format('DD')));
 
+  // const dayState = atom({
+  //   key: 'dayState',
+  //   default: selectedDay,
+  // });
   const handleClickDay = useCallback((day) => {
     setSelectedDay(day);
+    console.log(selectedDay);
   }, []);
 
   useEffect(() => {

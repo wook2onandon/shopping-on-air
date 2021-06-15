@@ -17,7 +17,7 @@ const Category = (props) => {
       <ul className={styles.menuList}>
         {menus.map((item) => {
           return (
-            <a className={styles.menuBox}>
+            <a className={styles.menuBox} key={item.id}>
               <li className={styles.menu} key={item.id}>
                 {item.menu}
               </li>
@@ -25,7 +25,7 @@ const Category = (props) => {
           );
         })}
         <div className={styles.channelContainer}>
-          <img className={styles.icon} src="/images/menu.png"></img>
+          <img className={styles.icon} src="/images/menu.png" alt="menu"></img>
           <span className={styles.channel}>채널</span>
         </div>
       </ul>

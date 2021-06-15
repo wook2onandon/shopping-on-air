@@ -1,6 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
 import styles from './Banner.module.css';
+import '../../../styles/stylesheet/slick.css';
+import '../../../styles/stylesheet/slick-theme.css';
 
 const Banner = (props) => {
   const settings = {
