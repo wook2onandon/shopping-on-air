@@ -1,59 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import styles from './List.module.css';
-
-const getOnAirList = (day) => {
-  const liveData = [
-    {
-      day: 14,
-      name: '감성 테이블웨어 트위그뉴욕 헤리티지 블루버드/데이지체인',
-      mall: '/images/kakaoshopping.png',
-      thumbnail: '/images/list1.png',
-      whetheLive: '방송종료',
-      category: '생활·가전',
-    },
-    {
-      day: 14,
-      name: '[파크론] 어반헤링본 에어버블 놀이방매트',
-      mall: '/images/navershopping.png',
-      thumbnail: '/images/list2.jpg',
-      whetheLive: '방송종료',
-      category: '유아·아동',
-    },
-    {
-      day: 16,
-      name: '올여름, 뼈건강 관리를 위한 매일유업 골든밀크 특별방송',
-      mall: '/images/navershopping.png',
-      thumbnail: '/images/list3.jpg',
-      whetheLive: '방송종료',
-      category: '식품·건강',
-    },
-    {
-      day: 16,
-      name: '신상 글라스데코 아이클레이 카카오리틀프렌즈',
-      mall: '/images/hmall.png',
-      thumbnail: '/images/list4.png',
-      whetheLive: '방송중',
-      category: '유아·아동',
-    },
-    {
-      day: 16,
-      name: '[키즈라이브데이]블랑101 최초 라이브 방송!',
-      mall: '/images/hmall.png',
-      thumbnail: '/images/list5.jpg',
-      whetheLive: '방송예정',
-      category: '뷰티',
-    },
-  ];
-
-  const selectData = liveData.filter((days) => day === days.day);
-
-  return selectData;
-};
+// import axios from 'axios';
+import useSearchApi from '../api/useSearchApi';
+import { useCallback } from 'react/cjs/react.development';
 
 const List = ({ selectedDay }) => {
-  const [onAirList, setOnAirList] = useState(getOnAirList(selectedDay));
+  const { onAirData, loading, error } = useSearchApi();
+  console.log(Object.prototype.toString.call(onAirData), onAirData);
+  const [choiceDay, setChoiceDay] = useState(null);
   useEffect(() => {
-    setOnAirList(getOnAirList(selectedDay));
+    setChoiceDay(selectedDay);
+  }, [selectedDay]);
+  // console.log(onAirData[0].day, choiceDay, '데이터');
+  const getOnAirList = useCallback(() => {
+    const selectData = onAirData.filter(function (days) {
+      return days.day === choiceDay;
+    });
+    console.log(selectData);
+    return selectData;
+  });
+
+  const [onAirList, setOnAirList] = useState(getOnAirList);
+
+  useEffect(() => {
+    setOnAirList(getOnAirList);
   }, [selectedDay]);
 
   if (!onAirList) return 'loading...';

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Categorymenu from '../categorymenu/Categorymenu';
 import styles from './Category.module.css';
 
 const Category = (props) => {
@@ -16,10 +15,19 @@ const Category = (props) => {
 
   const containerRef = useRef();
   const listRef = useRef();
+  const menuRef = useRef();
+  const [targetX, setTargetx] = useState();
+  const [targetWidth, setTargetWidth] = useState();
   const onClickSelet = (menu, e) => {
     setSelectedCategory(menu);
-    console.log(menu, e);
-    return e.nativeEvent.target.offsetLeft;
+    setTargetx(e.target.getBoundingClientRect().left);
+    setTargetWidth(e.target.offsetWidth);
+    console.log(
+      menu,
+      e.target.offsetWidth,
+      e.target.getBoundingClientRect().left,
+    );
+    return e;
   };
 
   // const onClickEvent = (e) => {
@@ -34,13 +42,15 @@ const Category = (props) => {
     const selectedCategoryObj = menus.find(
       (menu) => menu.selected === selectedCategory,
     );
-    if (!listRef) return;
+
+    if (!selectedCategoryObj) return;
 
     const boxHarf = containerRef.current.clientWidth / 2;
     const listWidth = listRef.current.scrollWidth;
-    const targetPos = listRef.current.scrollWidth;
-    const selectTargetPos = targetPos + listRef.current.offsetWidth / 2;
+    const targetPos = targetX;
+    const selectTargetPos = targetPos + targetWidth / 2;
     let pos = 0;
+
     if (selectTargetPos <= boxHarf) {
       pos = 0;
     } else if (listWidth - selectTargetPos <= boxHarf) {
@@ -53,21 +63,29 @@ const Category = (props) => {
       left: pos,
       behavior: 'smooth',
     });
-    // console.log(boxHarf, listWidth, targetPos, selectTargetPos, listRef);
+    // console.log(boxHarf, listWidth, targetPos, selectTargetPos, pos);
   }, [menus, selectedCategory]);
 
   return (
     <div className={styles.container} ref={containerRef}>
       <div className={styles.listWrapper}>
         <ul className={styles.menuList} ref={listRef}>
-          {menus.map((item) => {
+          {menus.map(({ id, menu, selected }) => {
             return (
-              <Categorymenu
-                key={item.id}
-                onClickSelet={onClickSelet}
-                menu={item.menu}
-                selected={item.selected}
-              />
+              // <Categorymenu
+              //   key={item.id}
+              //   onClickSelet={onClickSelet}
+              //   menu={item.menu}
+              //   selected={item.selected}
+              // />
+              <a
+                className={styles.menuBox}
+                key={id}
+                onClick={(e) => onClickSelet(selected, e)}
+                ref={menuRef}
+              >
+                <li className={styles.menu}>{menu}</li>
+              </a>
             );
           })}
         </ul>
