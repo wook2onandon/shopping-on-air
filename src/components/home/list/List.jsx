@@ -1,30 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './List.module.css';
-// import axios from 'axios';
 import useSearchApi from '../api/useSearchApi';
-import { useCallback } from 'react/cjs/react.development';
+
+const getOnAirList = (data, choice) => {
+  let selectData = null;
+  if (data) {
+    selectData = data.filter((days) => {
+      return days.day === choice;
+    });
+  }
+  // console.log(
+  //   selectData,
+  //   '온에어2222',
+  //   Object.prototype.toString.call(selectData),
+  //   '타입',
+  // );
+
+  return selectData;
+};
 
 const List = ({ selectedDay }) => {
-  const { onAirData, loading, error } = useSearchApi();
-  console.log(Object.prototype.toString.call(onAirData), onAirData);
-  const [choiceDay, setChoiceDay] = useState(null);
+  //custom hook api호출받아온 데이터
+  const [onAirData, loading, error] = useSearchApi();
+  console.log(onAirData);
+  //console.log(selectedDay, '셀렉');
+  const [choiceDay, setChoiceDay] = useState(selectedDay);
+  //console.log(choiceDay, '초이스데이초기값');
+
+  const [onAirList, setOnAirList] = useState([]);
+
+  useEffect(() => {
+    if (!onAirData) getOnAirList([]);
+    console.log('성공보다 느리게 나와야 여기에 데이터가 들어감');
+    setOnAirList(getOnAirList(onAirData, choiceDay));
+  }, [onAirData]);
+
+  console.log(onAirList, '온에어리스트초기값');
+  // console.log(Object.prototype.toString.call(onAirData), onAirData);
+
+  //
   useEffect(() => {
     setChoiceDay(selectedDay);
   }, [selectedDay]);
-  // console.log(onAirData[0].day, choiceDay, '데이터');
-  const getOnAirList = useCallback(() => {
-    const selectData = onAirData.filter(function (days) {
-      return days.day === choiceDay;
-    });
-    console.log(selectData);
-    return selectData;
-  });
 
-  const [onAirList, setOnAirList] = useState(getOnAirList);
+  // useEffect(() => {
+  //   selectedDay = selectedDay;
+  // }, [!choiceDay]);
 
   useEffect(() => {
-    setOnAirList(getOnAirList);
-  }, [selectedDay]);
+    setOnAirList(getOnAirList(onAirData, choiceDay));
+  }, [choiceDay]);
+
+  // console.log(onAirData, '온에어데이터');
+
+  console.log(onAirList, '온에어', choiceDay, '초이스데이');
 
   if (!onAirList) return 'loading...';
 

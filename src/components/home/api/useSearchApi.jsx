@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const useSearchApi = () => {
@@ -8,22 +8,22 @@ const useSearchApi = () => {
   const url =
     'https://shopping-on-air-default-rtdb.asia-southeast1.firebasedatabase.app/.json';
 
-  axios
-    .get(url)
-    .then(function (res) {
-      setOnAirData(res.data);
-      setLoading(false);
-      console.log('성공', res.data, loading);
-    })
-    .catch(function (error) {
-      console.log('실패');
-      setError(error);
-      setLoading(false);
-    });
-  console.log('성공', onAirData);
-  // console.log(onAirData[0].day, '이거');
+  useEffect(() => {
+    axios
+      .get(url)
+      .then(function (res) {
+        console.log('성공');
+        setOnAirData(res.data);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log('실패');
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
 
-  return { onAirData, loading, error };
+  return [onAirData, loading, error];
 };
 
 export default useSearchApi;

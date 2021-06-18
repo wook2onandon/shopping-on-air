@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Category.module.css';
+import useSearchApi from '../api/useSearchApi';
 
 const Category = (props) => {
+  const [onAirData, loading, error] = useSearchApi();
   const menus = [
     { id: 0, menu: '전체', selected: 'all', diff: 0 },
     { id: 1, menu: '식품·건강', selected: 'food', diff: 1 },
