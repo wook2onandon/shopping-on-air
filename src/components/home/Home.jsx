@@ -6,7 +6,6 @@ import Banner from './banner/Banner';
 import Category from './category/Category';
 import moment from 'moment';
 import 'moment/locale/ko';
-import List from './list/List';
 import Footer from './footer/Footer';
 
 const Home = (props) => {
@@ -21,8 +20,7 @@ const Home = (props) => {
           setSelectedDay={setSelectedDay}
         />
         <Banner />
-        <Category />
-        <List selectedDay={selectedDay} />
+        <Category selectedDay={selectedDay} />
       </div>
       <Footer />
     </div>

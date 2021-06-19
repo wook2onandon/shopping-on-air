@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './Category.module.css';
-import useSearchApi from '../api/useSearchApi';
 
-const Category = (props) => {
-  const [onAirData, loading, error] = useSearchApi();
+import List from '../list/List';
+import styles from './Category.module.css';
+
+const Category = ({ selectedDay }) => {
   const menus = [
     { id: 0, menu: '전체', selected: 'all', diff: 0 },
     { id: 1, menu: '식품·건강', selected: 'food', diff: 1 },
@@ -20,6 +20,7 @@ const Category = (props) => {
   const menuRef = useRef();
   const [targetX, setTargetx] = useState();
   const [targetWidth, setTargetWidth] = useState();
+  const [selectedCategory, setSelectedCategory] = useState('전체');
   const onClickSelet = (menu, e) => {
     setSelectedCategory(menu);
     setTargetx(e.target.getBoundingClientRect().left);
@@ -36,13 +37,12 @@ const Category = (props) => {
   //   console.log(e);
   //   // return e.nativeEvent.target.parentNode.offsetLeft;
   // };
-  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     if (!listRef.current) return;
 
     const selectedCategoryObj = menus.find(
-      (menu) => menu.selected === selectedCategory,
+      (menu) => menu.menu === selectedCategory,
     );
 
     if (!selectedCategoryObj) return;
@@ -69,34 +69,41 @@ const Category = (props) => {
   }, [menus, selectedCategory]);
 
   return (
-    <div className={styles.container} ref={containerRef}>
-      <div className={styles.listWrapper}>
-        <ul className={styles.menuList} ref={listRef}>
-          {menus.map(({ id, menu, selected }) => {
-            return (
-              // <Categorymenu
-              //   key={item.id}
-              //   onClickSelet={onClickSelet}
-              //   menu={item.menu}
-              //   selected={item.selected}
-              // />
-              <a
-                className={styles.menuBox}
-                key={id}
-                onClick={(e) => onClickSelet(selected, e)}
-                ref={menuRef}
-              >
-                <li className={styles.menu}>{menu}</li>
-              </a>
-            );
-          })}
-        </ul>
+    <>
+      <div className={styles.container} ref={containerRef}>
+        <div className={styles.listWrapper}>
+          <ul className={styles.menuList} ref={listRef}>
+            {menus.map(({ id, menu }) => {
+              return (
+                // <Categorymenu
+                //   key={item.id}
+                //   onClickSelet={onClickSelet}
+                //   menu={item.menu}
+                //   selected={item.selected}
+                // />
+                <a
+                  className={styles.menuBox}
+                  key={id}
+                  onClick={(e) => onClickSelet(menu, e)}
+                  ref={menuRef}
+                >
+                  <li className={styles.menu}>{menu}</li>
+                </a>
+              );
+            })}
+          </ul>
+        </div>
+        <div className={styles.channelContainer}>
+          <img className={styles.icon} src="/images/menu.png" alt="menu"></img>
+          <span className={styles.channel}>채널</span>
+        </div>
       </div>
-      <div className={styles.channelContainer}>
-        <img className={styles.icon} src="/images/menu.png" alt="menu"></img>
-        <span className={styles.channel}>채널</span>
-      </div>
-    </div>
+      <List
+        selectedDay={selectedDay}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+    </>
   );
 };
 

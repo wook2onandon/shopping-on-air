@@ -9,33 +9,33 @@ const getOnAirList = (data, choice) => {
       return days.day === choice;
     });
   }
-  // console.log(
-  //   selectData,
-  //   '온에어2222',
-  //   Object.prototype.toString.call(selectData),
-  //   '타입',
-  // );
-
   return selectData;
 };
 
-const List = ({ selectedDay }) => {
+const getCategory = (data, choice) => {
+  let selectCategory = null;
+  selectCategory = data.filter((item) => {
+    return item.category === choice;
+  });
+  return selectCategory;
+};
+
+const List = ({ selectedDay, setSelectedCategory, selectedCategory }) => {
   //custom hook api호출받아온 데이터
   const [onAirData, loading, error] = useSearchApi();
   console.log(onAirData);
   //console.log(selectedDay, '셀렉');
   const [choiceDay, setChoiceDay] = useState(selectedDay);
   //console.log(choiceDay, '초이스데이초기값');
-
   const [onAirList, setOnAirList] = useState([]);
 
   useEffect(() => {
     if (!onAirData) getOnAirList([]);
-    console.log('성공보다 느리게 나와야 여기에 데이터가 들어감');
+    // console.log('성공보다 느리게 나와야 여기에 데이터가 들어감');
     setOnAirList(getOnAirList(onAirData, choiceDay));
   }, [onAirData]);
 
-  console.log(onAirList, '온에어리스트초기값');
+  // console.log(onAirList, '온에어리스트초기값');
   // console.log(Object.prototype.toString.call(onAirData), onAirData);
 
   //
@@ -43,6 +43,10 @@ const List = ({ selectedDay }) => {
     setChoiceDay(selectedDay);
   }, [selectedDay]);
 
+  useEffect(() => {
+    setOnAirList(getCategory(onAirList, selectedCategory));
+    console.log(onAirList, '온에어리스트', selectedCategory, '선택카테고리');
+  }, [selectedCategory]);
   // useEffect(() => {
   //   selectedDay = selectedDay;
   // }, [!choiceDay]);
